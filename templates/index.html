@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <title>Todo App</title>
+</head>
+<body>
+    <div style = "margin-top: 100px;" class = "container">
+        <h3>Todo List</h3>
+        <hr>
+
+        <form action="/add" method="POST">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Todo Title</label>
+                <input type="text" class="form-control" name="title" id="formGroupExampleInput" placeholder="Enter Todo">
+                <br>
+                <button type="submit" class="btn btn-danger">Add</button>
+            </div>
+            <hr>
+        </form>
+
+        {% if todos == [] %}
+            <div class="alert alert-warning" role="aler">
+                You do not have any todo.
+            </div>
+        {% else %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Todo Title</th>
+                        <th scope="col">Todo Status</th>
+                        <th scope="col">Update Status</th>
+                        <th scope="col">Delete Todo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                        <tr>
+                            <th scope="row">{{todo.id}}</th>
+                            <td>{{todo.title}}</td>
+                            {% if todo.complete == False %}
+                                <td>Not Completed</td>
+                            {% else %}
+                                <td>Completed</td>
+                            {% endif %}
+                            <td><a href="/complete/{{todo.id}}" class="btn btn-danger">Complete</a></td>
+                            <td><a href="/delete/{{todo.id}}" class="btn btn-danger">Delete</a></td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+</html>
+
